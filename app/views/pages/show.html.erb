@@ -1,0 +1,65 @@
+<% content_for :title, @page.title %>
+
+<div class="w-full max-w-5xl mx-auto">
+  <% if notice.present? %>
+    <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-r-lg">
+      <p class="font-medium"><%= notice %></p>
+    </div>
+  <% end %>
+
+  <!-- Page Header -->
+  <div class="bg-white rounded-lg shadow-md p-8 mb-6 border-t-4" style="border-color: #3B82F6;">
+    <div class="flex justify-between items-start mb-4">
+      <h1 class="text-5xl font-bold" style="color: #1E40AF;"><%= @page.title %></h1>
+      
+      <!-- Actions -->
+      <div class="flex gap-3">
+        <%= link_to edit_page_path(@page), class: "flex items-center gap-1 px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
+          <span>✏️</span>
+          <span>Éditer</span>
+        <% end %>
+        
+        <%= button_to @page, method: :delete, class: "flex items-center gap-1 px-4 py-2 text-sm rounded-lg font-medium text-white bg-red-500 hover:bg-red-600 transition", data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette page ?" } do %>
+          <span>🗑️</span>
+          <span>Supprimer</span>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Metadata -->
+    <div class="flex items-center gap-4 text-sm text-gray-600 border-t border-gray-200 pt-4">
+      <div class="flex items-center gap-2">
+        <span>🔗</span>
+        <span>URL:</span>
+        <code class="px-2 py-1 bg-gray-100 rounded font-mono"><%= @page.slug %></code>
+      </div>
+      <div class="flex items-center gap-2">
+        <span>📅</span>
+        <span>Créée le <%= l(@page.created_at, format: :long) %></span>
+      </div>
+      <% if @page.updated_at != @page.created_at %>
+        <div class="flex items-center gap-2">
+          <span>🔄</span>
+          <span>Modifiée le <%= l(@page.updated_at, format: :long) %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="bg-white rounded-lg shadow-md p-8 border-l-4" style="border-color: #3B82F6;">
+    <div class="prose prose-lg max-w-none">
+      <div class="text-gray-800 whitespace-pre-wrap leading-relaxed">
+        <%= simple_format(@page.content) %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-6">
+    <%= link_to pages_path, class: "inline-flex items-center gap-2 px-6 py-3 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
+      <span>←</span>
+      <span>Retour à toutes les pages</span>
+    <% end %>
+  </div>
+</div>

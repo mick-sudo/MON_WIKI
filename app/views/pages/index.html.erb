@@ -1,0 +1,70 @@
+<% content_for :title, "Pages" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-r-lg">
+      <p class="font-medium"><%= notice %></p>
+    </div>
+  <% end %>
+
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-2" style="color: #1E40AF;">Toutes les pages</h1>
+    <p class="text-gray-600">Explorez et gérez vos pages wiki</p>
+  </div>
+
+  <!-- Pages Grid -->
+  <div id="pages" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <% if @pages.any? %>
+      <% @pages.each do |page| %>
+        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4" style="border-color: #3B82F6;">
+          <div class="p-6">
+            <!-- Title -->
+            <h2 class="text-2xl font-bold mb-3 hover:opacity-80 transition">
+              <%= link_to page.title, page, style: "color: #1E40AF;" %>
+            </h2>
+            
+            <!-- Slug -->
+            <div class="mb-4 flex items-center gap-2 text-sm text-gray-500">
+              <span>🔗</span>
+              <code class="px-2 py-1 bg-gray-100 rounded font-mono"><%= page.slug %></code>
+            </div>
+            
+            <!-- Content Preview -->
+            <p class="text-gray-700 mb-6 line-clamp-3">
+              <%= truncate(page.content, length: 150) %>
+            </p>
+            
+            <!-- Actions -->
+            <div class="flex gap-3 pt-4 border-t border-gray-200">
+              <%= link_to page, class: "flex items-center gap-1 px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" do %>
+                <span>👁️</span>
+                <span>Voir</span>
+              <% end %>
+              
+              <%= link_to edit_page_path(page), class: "flex items-center gap-1 px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
+                <span>✏️</span>
+                <span>Éditer</span>
+              <% end %>
+              
+              <%= button_to page, method: :delete, class: "flex items-center gap-1 px-4 py-2 text-sm rounded-lg font-medium text-white bg-red-500 hover:bg-red-600 transition", data: { turbo_confirm: "Êtes-vous sûr ?" } do %>
+                <span>🗑️</span>
+                <span>Supprimer</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-span-2 text-center py-16 bg-white rounded-lg shadow-md">
+        <div class="text-6xl mb-4">📚</div>
+        <p class="text-xl text-gray-600 mb-4">Aucune page trouvée</p>
+        <p class="text-gray-500 mb-6">Commencez par créer votre première page !</p>
+        <%= link_to new_page_path, class: "inline-flex items-center gap-2 px-6 py-3 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" do %>
+          <span>➕</span>
+          <span>Créer ma première page</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
