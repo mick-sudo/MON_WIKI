@@ -10,7 +10,7 @@ Un wiki personnelconstruit avec Ruby on Rails 8.
 - ✅ Design responsive et épuré
 - ✅ Navigation intuitive avec navbar fixe
 - 🔜 Rendu Markdown
-- 🔜 Système d'authentification
+- ✅ Système d'authentification
 - 🔜 Upload d'images
 - 🔜 Tags et catégories
 - 🔜 Recherche full-text

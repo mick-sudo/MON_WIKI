@@ -26,14 +26,24 @@
       </div>
       
       <!-- Boutons -->
-      <div class="flex gap-3">
-        <%= link_to new_page_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" do %>
-          <span>➕</span>
-          <span>Nouvelle page</span>
-        <% end %>
-        <%= link_to pages_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
-          <span>📄</span>
-          <span>Toutes les pages</span>
+      <div class="flex items-center gap-3">
+        <% if user_signed_in? %>
+          <span class="text-sm font-medium" style="color: #1E40AF;">👤 <%= current_user.username %></span>
+          
+          <%= link_to new_page_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" do %>
+            <span>➕</span>
+            <span>Nouvelle page</span>
+          <% end %>
+          
+          <%= link_to pages_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
+            <span>📄</span>
+            <span>Pages</span>
+          <% end %>
+          
+          <%= link_to "🚪 Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #EF4444;" %>
+        <% else %>
+          <%= link_to "Connexion", new_user_session_path, class: "px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" %>
+          <%= link_to "Inscription", new_user_registration_path, class: "px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" %>
         <% end %>
       </div>
       

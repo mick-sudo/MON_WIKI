@@ -1,0 +1,56 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="text-4xl font-bold mb-2" style="color: #1E40AF;">Connexion</h2>
+      <p class="text-gray-600">Accédez à votre wiki</p>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="bg-white rounded-lg shadow-md p-8 border-t-4" style="border-color: #3B82F6;">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        
+        <!-- Username -->
+        <div class="mb-6">
+          <%= f.label :username, "Nom d'utilisateur", class: "block text-sm font-semibold mb-2", style: "color: #1E40AF;" %>
+          <%= f.text_field :username, 
+              autofocus: true, 
+              autocomplete: "username",
+              class: "block w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:border-blue-500 transition",
+              style: "border-color: #E5E7EB;",
+              placeholder: "Votre pseudo" %>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+          <%= f.label :password, "Mot de passe", class: "block text-sm font-semibold mb-2", style: "color: #1E40AF;" %>
+          <%= f.password_field :password, 
+              autocomplete: "current-password",
+              class: "block w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:border-blue-500 transition",
+              style: "border-color: #E5E7EB;",
+              placeholder: "••••••••" %>
+        </div>
+
+        <!-- Remember me -->
+        <% if devise_mapping.rememberable? %>
+          <div class="mb-6 flex items-center">
+            <%= f.check_box :remember_me, class: "mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" %>
+            <%= f.label :remember_me, "Se souvenir de moi", class: "text-sm text-gray-600" %>
+          </div>
+        <% end %>
+
+        <!-- Submit Button -->
+        <div class="mb-6">
+          <%= f.submit "Se connecter", 
+              class: "w-full px-6 py-3 text-base rounded-lg font-medium text-white hover:opacity-90 transition cursor-pointer", 
+              style: "background-color: #3B82F6;" %>
+        </div>
+      <% end %>
+
+      <!-- Links -->
+      <div class="text-center text-sm text-gray-600">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
