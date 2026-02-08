@@ -3,7 +3,11 @@ class PagesController < ApplicationController
   before_action :set_page, only: %i[ show edit update destroy ]
   # GET /pages or /pages.json
   def index
-    @pages = Page.all
+    if params[:query].present?
+      @pages = Page.where("title LIKE ? OR content LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      @pages = Page.all
+    end
   end
 
   # GET /pages/1 or /pages/1.json

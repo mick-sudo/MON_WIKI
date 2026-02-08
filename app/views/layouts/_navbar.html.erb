@@ -9,20 +9,19 @@
           <span class="text-xl font-bold" style="color: #1E40AF;">Mon Wiki</span>
         <% end %>
       </div>
-      
+
       <!-- Recherche -->
       <div class="flex-1 max-w-md mx-8">
-        <div class="relative">
-          <input 
-            type="text" 
-            placeholder="Rechercher dans le wiki..." 
-            class="w-full px-4 py-2 pl-10 text-sm rounded-lg border-2 focus:outline-none focus:border-blue-500 transition"
-            style="border-color: #E5E7EB; background-color: #F9FAFB;"
-          >
-          <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <%= form_with(url: pages_path, method: :get, local: true, class: "relative") do |f| %>
+          <%= f.text_field :query, 
+              value: params[:query],
+              placeholder: "Rechercher dans le wiki...", 
+              class: "w-full px-4 py-2 pl-10 text-sm rounded-lg border-2 focus:outline-none focus:border-blue-500 transition",
+              style: "border-color: #E5E7EB; background-color: #F9FAFB;" %>
+          <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
-        </div>
+        <% end %>
       </div>
       
       <!-- Boutons -->
@@ -33,11 +32,6 @@
           <%= link_to new_page_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #3B82F6;" do %>
             <span>➕</span>
             <span>Nouvelle page</span>
-          <% end %>
-          
-          <%= link_to pages_path, class: "flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium border-2 hover:bg-gray-50 transition", style: "border-color: #3B82F6; color: #1E40AF;" do %>
-            <span>📄</span>
-            <span>Pages</span>
           <% end %>
           
           <%= link_to "🚪 Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "px-4 py-2 text-sm rounded-lg font-medium text-white hover:opacity-90 transition", style: "background-color: #EF4444;" %>
